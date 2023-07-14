@@ -1,0 +1,34 @@
+
+<div>
+        <h2>{{user.email}} </h2>
+        <h2>Bienvenido:{{user.first_name}} </h2>
+    </div>
+   
+
+ <form action= "../session/login" method="get">
+        <input  class="btn btn-light ps-3 " type="submit" value="Logout">
+</form>   
+
+
+
+
+
+
+<div>
+    {{#each products}}
+   <div>
+    <p>{{title}}</p>
+    <p>{{description}}</p>
+    <p>{{price}} </p>
+    <p>{{code}}</p>
+    
+    
+    <p>{{stock}}</p>
+   </div>
+    
+
+   {{/each}}
+</div>
+
+
+
