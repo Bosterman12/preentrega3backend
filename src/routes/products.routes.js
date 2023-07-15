@@ -1,12 +1,9 @@
 import { Router } from "express";
-import { ProductManager } from "../productmanager.js";
-import { productModel } from "../models/Products.js";
-import { userModel } from "../models/Users.js";
+//import { ProductManager } from "../productmanager.js";
+//import { productModel } from "../models/Products.js";
+//import { userModel } from "../models/Users.js";
+import { findAllProd, findOneprod, createOneProd,updateOneProd,deleteProd } from "../controllers/products.controller.js";
 
-
-
-
-//const productManager = new ProductManager ('productos.txt')
 
 const productRouter = Router()
 
@@ -15,7 +12,7 @@ const productRouter = Router()
     return res.send("Error de autenticacion")
 }*/
 
-productRouter.get("/", async (req,res) => {
+/*productRouter.get("/", async (req,res) => {
     try{
         //const products = await productModel.find()
         const options = {
@@ -33,7 +30,7 @@ productRouter.get("/", async (req,res) => {
             price: products.price,
             code: products.code,
             stock: products.stock //esto es para handlebars
-        }) */
+        }) 
         res.render('home', {
             products: products.docs,
             
@@ -61,7 +58,7 @@ productRouter.get('/:id', async (req, res) => {
         code: product.code,
         stock: product.stock //esto es para handlebars
     })
-    //res.send(product) //esto es para postman
+    res.send(product) //esto es para postman
  
 })
 
@@ -83,6 +80,12 @@ productRouter.delete('/:id', async (req,res) => {
     const id = req.params.id
     const mensaje = await productModel.deleteOne({_id: id})
     res.send(mensaje)
-})
+})*/
+
+productRouter.get('/',findAllProd)
+productRouter.get('/:id', findOneprod)
+productRouter.post('/', createOneProd)
+productRouter.put('/:id', updateOneProd)
+productRouter.delete('/:id', deleteProd)
 
 export default productRouter
