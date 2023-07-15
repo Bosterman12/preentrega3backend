@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { CartManager } from "../CartManager.js";
-import { cartModel } from "../models/Cart.js";
+//import { CartManager } from "../CartManager.js";
+//import { cartModel } from "../models/Cart.js";
+import { findCarts, findOneCart, createCart, updateCart,deleteCart } from "../controllers/carts.controller.js";
 
 //const cartmanager = new CartManager ('carrito.txt')
 
 const cartRouter = Router()
 
 
-cartRouter.get('/:cid', async (req, res) => {
+/*cartRouter.get('/:cid', async (req, res) => {
     const cart = await cartModel.findOne({_id: req.params.cid})
     res.send(cart)
     
@@ -116,6 +117,12 @@ cartRouter.post('/:cid/product/:pid', async (req, res) => {
     const mensaje = await cartmanager.addProductCart(idCart,{id, cantidad})
     res.send(mensaje)
 })*/
+
+cartRouter.get('/', findCarts)
+cartRouter.get('/:cid', findOneCart)
+cartRouter.post('/', createCart)
+cartRouter.post('/:cid/product/:pid', updateCart)
+cartRouter.delete('/:cid/product/:pid', deleteCart)
 
 
 
