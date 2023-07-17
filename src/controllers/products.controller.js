@@ -3,8 +3,8 @@ import { findAllProducts, findOneProductByid, createOneProduct, updateOneProduct
 export const findAllProd = async (req,res) => {
     try{
         const products = await findAllProducts()
-        if(products) {
-            res.render('home', {
+            
+           res.render('home', {
                 products: products.docs,
                 
                 user: req.session.user
@@ -13,12 +13,16 @@ export const findAllProd = async (req,res) => {
                
     
                 })
-            res.status(200).json({message: "products found", products})
-           // console.log(products)
+           //res.status(200).json({message: "products found", products})
+           //res.send(products)
            
-        }else{
-            res.status(200).json({message: "no products"})
-        }
+           //console.log(products)
+          
+           
+        
+        
+        
+            
     }catch(error) {
         res.status(500).json({error})
     }

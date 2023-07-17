@@ -5,6 +5,7 @@ const productsManager = new productManager
 export const findAllProducts = async ()=> {
     try{
         const products = await productsManager.findAllProducts()
+    
         return products
     }catch(error) {
         return error

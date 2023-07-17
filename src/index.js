@@ -26,6 +26,9 @@ import initializePassport from './config/passport.js'
 import handlebars from 'express-handlebars'
 import config from './config/config.js'
 import './config/dbConfig.js'
+import cors from 'cors'
+import router from './routes/views.routes.js'
+
 
 
 
@@ -77,6 +80,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 const upload = (multer({storage:storage}))
 app.use(cookieParser(config.COOKIE_SECRET))
+app.use(cors())
 
 
 
@@ -153,6 +157,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Rutas
+
 app.use('/session', routerSession,(req, res) =>{
     res.render('sessions/login')
     //res.redirect('api/product')
@@ -172,24 +177,31 @@ app.get('/session', (req, res) =>{
     res.send(`Hola esta es la primera vez que ingreso`)
 } })
 
-app.use('/api/product', productRouter)
-app.use('/api/cart', cartRouter)
-app.use( '/api/product' ,express.static(__dirname + '/public'))
+
+
+
+
 app.post('/upload', upload.single('product'), (req, res) => {
     console.log(req.body)
     console.log(req.file)
     res.send("imagen subida")
 })
 
+app.use('/api/product', productRouter)
+app.use('/api/cart', cartRouter)
+app.use( '/api/product' ,express.static(__dirname + '/public'))
+
 app.get("/", (req, res) => {
     res.render('index')
 })
+
 app.get("/api/product", (req, res) => {
     res.render('home')})
 
 app.get("/api/errorLogin", (req, res) => {
     res.render('errorLogin')
 })
+
 
 console.log(process.argv)
 console.log(config.SECRET_KEY)

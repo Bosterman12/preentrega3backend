@@ -4,10 +4,16 @@ export default class productManager {
 
     async findAllProducts(){
         try{
-            const products = await productModel.find()
-           console.log(products)
+            //const products = await productModel.find()
+           //console.log(products)
+            //return products
+            const options = {
+                page: 1,
+                limit: 5,
+                sort: {price: -1}
+            }
+            const products = await productModel.paginate({category: "fiambre"}, options)
             return products
-    
         }catch(error) {
             return (error)
         }

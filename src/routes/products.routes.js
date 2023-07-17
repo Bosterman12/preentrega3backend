@@ -1,6 +1,6 @@
 import { Router } from "express";
-//import { ProductManager } from "../productmanager.js";
-//import { productModel } from "../models/Products.js";
+import { ProductManager } from "../productmanager.js";
+import { productModel } from "../models/Products.js";
 //import { userModel } from "../models/Users.js";
 import { findAllProd, findOneprod, createOneProd,updateOneProd,deleteProd } from "../controllers/products.controller.js";
 
@@ -14,7 +14,7 @@ const productRouter = Router()
 
 /*productRouter.get("/", async (req,res) => {
     try{
-        //const products = await productModel.find()
+        const products = await productModel.find()
         const options = {
             page: 1,
             limit: 5,
@@ -22,8 +22,8 @@ const productRouter = Router()
         }
         const products = await productModel.paginate({category: "fiambre"}, options)
         
-        //res.send(products)
-       /*res.render('product', {
+        res.send(products)
+       res.render('product', {
             
             title: products.title,
             description: products.description,
@@ -46,10 +46,10 @@ const productRouter = Router()
         res.send (error)
     }
     
-})
+})*/
 
 
-productRouter.get('/:id', async (req, res) => {
+/*productRouter.get('/:id', async (req, res) => {
     const product = await productModel.findOne({_id: req.params.id})
     res.render('product', {
         title: product.title,
