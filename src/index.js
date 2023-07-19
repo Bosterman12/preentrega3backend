@@ -20,6 +20,7 @@ import  FileStore  from 'session-file-store'
 import MongoStore from 'connect-mongo'
 import './utils/bcrypt.js'
 import passport from 'passport'
+import './config/passport.js'
 import routerSession from './routes/session.routes.js'
 import userRouter from './routes/users.routes.js'
 import initializePassport from './config/passport.js'
@@ -27,7 +28,8 @@ import handlebars from 'express-handlebars'
 import config from './config/config.js'
 import './config/dbConfig.js'
 import cors from 'cors'
-import router from './routes/views.routes.js'
+import orderRouter from './routes/orders.routes.js'
+import jwtRouter from './routes/jwt.routes.js'
 
 
 
@@ -45,10 +47,10 @@ const storage = multer.diskStorage({
 }) 
 
 
-/*mongoose.connect(config.URL_MONGODB_ATLAS)
+//mongoose.connect(config.URL_MONGODB_ATLAS)
 //mongoose.connect("mongodb+srv://bandialejandro:Bocha101@cluster0.b47bksn.mongodb.net/?retryWrites=true&w=majority")
-.then(() => console.log("DB is connected"))
-.catch((error) => console.log("error en MongoDB Atlas:", error))*/
+//.then(() => console.log("DB is connected"))
+//.catch((error) => console.log("error en MongoDB Atlas:", error))
 
 // Express
 
@@ -124,7 +126,8 @@ app.get('/getCookie', (req, res) =>{
 app.get('/deleteCookie', (req, res) =>{
     res.clearCookie('CookieCookie').send("Cookie eliminada")
     })
-
+    
+app.use('api/order', orderRouter)
 //session
 
 const fileStorage = FileStore(session);
@@ -190,7 +193,8 @@ app.post('/upload', upload.single('product'), (req, res) => {
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
 app.use( '/api/product' ,express.static(__dirname + '/public'))
-
+//app.use('api/order', orderRouter)
+app.use('/api/jwt', jwtRouter)
 app.get("/", (req, res) => {
     res.render('index')
 })

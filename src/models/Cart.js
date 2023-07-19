@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
 const cartSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+      },
     products: {
         type: [
             {

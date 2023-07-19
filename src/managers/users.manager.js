@@ -1,5 +1,6 @@
 import { userModel } from "../models/Users.js";
 
+
 export default class userManager {
 
     async findAll(){

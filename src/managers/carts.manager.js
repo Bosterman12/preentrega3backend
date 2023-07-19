@@ -27,7 +27,7 @@ export default class cartManager {
         try{
             const newCart = await cartModel.create(obj)
             return newCart
-    
+            
         }catch(error) {
             return (error)
         }

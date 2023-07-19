@@ -23,6 +23,18 @@ userRouter.get(
     res.redirect('../api/product');
   })
 
+  userRouter.get(
+    '/googleSignup',
+    passport.authenticate('googleStrategy', { scope: ['profile'] })
+  ) 
+
+  userRouter.get('/google', 
+  passport.authenticate('googleStrategy', { failureRedirect: '/session/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('../api/product');
+  })
+
 userRouter.get('/',findAllUsers)
 userRouter.get('/:id', findOneUser)
 //userRouter.post('/register', createOneUser)

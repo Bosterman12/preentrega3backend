@@ -3,6 +3,9 @@ import passport from 'passport'
 import { createHash, validatePassword } from '../utils/bcrypt.js'
 import { userModel} from '../models/Users.js'
 import { Strategy as GithubStrategy} from 'passport-github2'
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import { Strategy as jwtStrategy, ExtractJwt } from 'passport-jwt'
+import config from './config.js'
 
 const LocalStrategy = local.Strategy
 
@@ -90,6 +93,49 @@ const initializePassport = () => {
           }
         )
       )
+      passport.use(
+        'googleStrategy',
+        new GoogleStrategy(
+          {
+            clientID: config.GOOGLE_CLIENT_ID,
+            clientSecret: config.GOOGLE_CLIENT_SECRET,
+            callbackURL: 'http://localhost:4000/user/google',
+          },
+         async (accessToken, refreshToken, profile, done) =>{
+          console.log(profile);
+          const {given_name, family_name, email} = profile._json
+          try{
+            const userDB = await userModel.findOne({email})
+            if(userDB){
+              return done (null, userDB)
+            }
+            const user = {
+              first_name: given_name,
+              last_name: family_name || '',
+              email: email,
+              password: ' ',
+            }
+            const newUserDB = await userModel.create(user)
+            done(null, newUserDB)
+          }catch(error){
+            done(error)
+          }
+         } 
+          ))
+
+      passport.use('jwtStrategy',
+      new jwtStrategy(
+        {
+          jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+          secretOrKey: config.SECRET_KEY_JWT,
+        },
+        async (jwt_payload, done) =>{
+          //console(jwt_payload)
+          done(null, jwt_payload.user)
+
+        }
+      ))
+
 }
 
     export default initializePassport

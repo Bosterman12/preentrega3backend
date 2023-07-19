@@ -12,5 +12,9 @@ export default{
     COOKIE_SECRET: process.env.COOKIE_SECRET,
     SESSION_SECRET: process.env.SESSION_SECRET,
     SALT: process.env.SALT,
-    SECRET_KEY: process.env.SECRET_KEY
+    SECRET_KEY: process.env.SECRET_KEY,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET:process.env.GOOGLE_CLIENT_SECRET,
+    SECRET_KEY_JWT: process.env.SECRET_KEY_JWT
+
 }
