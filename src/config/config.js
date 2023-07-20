@@ -15,6 +15,8 @@ export default{
     SECRET_KEY: process.env.SECRET_KEY,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET:process.env.GOOGLE_CLIENT_SECRET,
-    SECRET_KEY_JWT: process.env.SECRET_KEY_JWT
+    SECRET_KEY_JWT: process.env.SECRET_KEY_JWT,
+    gmail_user: process.env.GMAIL_USER,
+    gmail_password: process.env.GMAIL_PASSWORD
 
 }

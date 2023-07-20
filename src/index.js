@@ -30,6 +30,7 @@ import './config/dbConfig.js'
 import cors from 'cors'
 import orderRouter from './routes/orders.routes.js'
 import jwtRouter from './routes/jwt.routes.js'
+import messagesRouter from './routes/messages.router.js'
 
 
 
@@ -190,11 +191,15 @@ app.post('/upload', upload.single('product'), (req, res) => {
     res.send("imagen subida")
 })
 
+app.use('/api/message', messagesRouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
 app.use( '/api/product' ,express.static(__dirname + '/public'))
-//app.use('api/order', orderRouter)
+app.use('/api/order', orderRouter)
 app.use('/api/jwt', jwtRouter)
+
+
+
 app.get("/", (req, res) => {
     res.render('index')
 })
