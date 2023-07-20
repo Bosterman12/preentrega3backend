@@ -43,8 +43,8 @@ export const findOneorder = async (req,res) => {
 
  export const createOrder= async (req, res) => {
     
-    const { order_number, cart, user, products, price } = req.body
-    if (!order_number || !cart || !user || !products || !price) {
+    const { code, amount, purchaser } = req.body
+    if (!code || !amount || !purchaser) {
         return res.status(400).json({ message: 'Data missing' })
       }
     try {
